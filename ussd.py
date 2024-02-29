@@ -9,7 +9,7 @@ import os
 app = Flask(_name_)  # Corrected the variable name
 
 username = "sandbox"
-api_key = "4569fd7da8ff1ae406865f9c6db647ca5e3f4f420bdae95ed3d053af924be6fe"
+api_key = ""
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
