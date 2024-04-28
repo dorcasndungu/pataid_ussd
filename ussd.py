@@ -1,12 +1,16 @@
-# import firebase_admin
-# from firebase_admin import credentials, db
-# cred = credentials.Certificate("C:\Users\pc\OneDrive\Desktop\Pata_id\credentials.json")
-# firebase_admin.initialize_app(cred, {'databaseURL': 'https://pataid-default-rtdb.firebaseio.com'})
+import firebase_admin
+from firebase_admin import credentials, db
 from flask import Flask, request
 import africastalking
 import os
 
 app = Flask(__name__)  # Corrected the variable name
+
+# Initialize Firebase app with credentials
+cred = credentials.Certificate("firebase-adminsdk.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://ussd-79318-default-rtdb.firebaseio.com/'
+})
 
 username = "sandbox"
 api_key = ""
@@ -92,6 +96,7 @@ def ussd_callback():
     # Access the ID number found and name from session data
         id_number_found = session_data.get('id_number_found')
         name_found = session_data.get('name_found')
+       
     # Clear session data
         session_data.clear()
         response = "END Report submitted successfully. Thank you!"
