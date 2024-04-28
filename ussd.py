@@ -31,14 +31,19 @@ def ussd_callback():
         response += "2. Report Found ID"
 
     # Handling the menu options
-    elif text == '1':
-        response = "CON Please enter your ID number\n"
-
-    elif text == '1*':
-        response = "CON Please enter the name as on the ID\n"
-
-    elif text == '1**':
-        response = "END Report submitted successfully. We will notify you when it is found. Thank you!"
+elif text.startswith('1*'):
+    # This block handles the ID number input after option 1 is selected
+    # You can extract the ID number and prompt for other details similarly
+    id_number = text.split('*')[1]
+    # Prompt the user to enter the name as on the ID
+    response = "CON Please enter the name as on the ID:"
+elif text.startswith('1*'):
+    # This block handles the name input after entering the ID number
+    # Extract the name input and process further as needed
+    name = text.split('*')[2]
+    # Process the name input here
+    # You can save it to a database or perform any necessary operations
+    response = "END Report submitted successfully. We will notify you when it is found. Thank you!"
 
     elif text == '2':
         response = "CON Please enter the ID number found\n"
