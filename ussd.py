@@ -12,11 +12,12 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://ussd-79318-default-rtdb.firebaseio.com/'
 })
 
-username = "sandbox"
-api_key = ""
+username = "dorcaslovelacegirl"
+api_key = "b0af8e9fa3ed67824380c6c2ab5c0139bece3e7e496f1bbe00366d340ffdfe21"
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
-
+# Define the reference to the Firebase Realtime Database
+ref = db.reference()
 @app.route('/', methods=['POST', 'GET'])
 def ussd_callback():
     global response
@@ -58,6 +59,11 @@ def ussd_callback():
     # You can save them to a database or perform any necessary operations
     # Access the ID number from session data
         id_number = session_data.get('id_number')
+         # Save data to Firebase under "lost_id" node
+        ref.child('lost_id').push({
+            'id_number': session_data['id_number'],
+            'name': name
+        })
     # Clear session data
         session_data.clear()
         response = "END Report submitted successfully. We will notify you when it is found. Thank you!"
@@ -91,13 +97,13 @@ def ussd_callback():
     # If the user is in the process of reporting a found ID
     # Extract the location found input from the user's input
         location_found = text
-    # Process the ID number found, name, and location here
-    # You can save them to a database or perform any necessary operations
-    # Access the ID number found and name from session data
-        id_number_found = session_data.get('id_number_found')
-        name_found = session_data.get('name_found')
-       
-    # Clear session data
+    # Save data to Firebase under "found_id" node
+        ref.child('found_id').push({
+            'id_number_found': session_data['id_number_found'],
+            'name_found': session_data['name_found'],
+            'location_found': location_found
+        })
+          # Clear session data
         session_data.clear()
         response = "END Report submitted successfully. Thank you!"
 
@@ -107,5 +113,5 @@ def ussd_callback():
 
     return response
 
-if __name__ == "main":  # Corrected the variable name
+if __name__ == "__main__":  # Corrected the variable name
     app.run(host="0.0.0.0", port= 3000)
