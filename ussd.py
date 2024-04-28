@@ -31,7 +31,7 @@ def ussd_callback():
     # ussd logic
     # main menu
     if text == '':
-        response = "CON Welcome to Pata_ID! What do you want? \n"
+        response = "CON Welcome to Pata ID! \n Please choose a service \n"
         response += "1. Report Lost ID \n"
         response += "2. Report Found ID"
 
