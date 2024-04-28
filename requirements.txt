@@ -1,0 +1,5 @@
+flask 
+africastalking
+firebase_admin
+credentials
+db
